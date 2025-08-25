@@ -12,11 +12,7 @@ Simply run `entry` in any terminal and a new daily entry is created or reopened 
 
 ## Installation
 
-You can run my install script for a default configuration:
-
-```sh
-wget -O - [script here] | bash;
-```
+Install script coming soon!
 
 Alternitavely, clone the repo, and use each component as needed:
 
