@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Debug.
+function debug {
+	if [ "$ENTRY_DEBUG" == "TRUE" ]; then
+		echo "$1";
+	fi
+}
+
+# Include config.
+if [ -f "$HOME/.config/entry.config" ]; then
+	debug "[info] loading .config/entry.config";
+	source "$HOME/.config/entry.config";
+fi
+
+# Default config.
+if [ "$ENTRY_PATH" == "" ]; then
+	debug "[info] defaulting entry path.";
+	ENTRY_PATH="$HOME/.cache/entry";
+else
+	debug "[info] using config for path $ENTRY_PATH";
+fi
+
+if [ "$ENTRY_EDITOR" == "" ]; then
+	debug "[info] defaulting editor to vi.";
+	ENTRY_EDITOR="vi";
+else
+	debug "[info] using config for editor $ENTRY_EDITOR";
+fi
+
+
+# Check for (and create if not exists path).
+if [ ! -d "$ENTRY_PATH" ]; then
+	debug "[info] creating path $ENTRY_PATH";
+	mkdir -p $ENTRY_PATH;
+fi
+
+# Prep file
+ENTRY_DATE=$(date "+%y-%m-%d");
+ENTRY_FILENAME="$ENTRY_PATH/$ENTRY_DATE.md";
+
+# Create entry if not exists.
+if [ ! -f "$ENTRY_FILENAME" ]; then
+	if [ "$ENTRY_TEMPLATE" != "" ]; then
+		# Use template with variables.
+		debug "[info] using config for template $ENTRY_TEMPLATE";
+		sed "s/DATEHERE/$ENTRY_DATE/g" $ENTRY_TEMPLATE > $ENTRY_FILENAME;
+	else
+		# Create a simple file.
+		debug "[info] creating new entry $ENTRY_FILENAME";
+		touch $ENTRY_FILENAME;
+	fi
+fi
+
+# Open entry.
+debug "[info] opening $ENTRY_FILENAME";
+if [ "$ENTRY_EDITOR" != "" ]; then
+	$ENTRY_EDITOR $ENTRY_FILENAME;
+fi
+
