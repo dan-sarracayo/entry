@@ -12,7 +12,11 @@ Simply run `entry` in any terminal and a new daily entry is created or reopened 
 
 ## Installation
 
-Install script coming soon!
+Install using this command...
+
+```sh
+wget -qO - 'https://raw.githubusercontent.com/dan-sarracayo/entry/refs/heads/main/install.sh' | bash -s
+```
 
 Alternitavely, clone the repo, and use each component as needed:
 
