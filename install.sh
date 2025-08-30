@@ -22,13 +22,17 @@ function checkdir {
 	fi
 }
 
+echo "[info] installing entry...";
+
 # Install script.
 checkdir "$LOCAL_BIN";
 wget $ENTRY_SCRIPT_URL -q -O "$LOCAL_BIN/entry";
-echo "[info] installed script."
+echo "[info] installed script.";
 
 # Install config.
 checkdir "$LOCAL_CONFIG";
 wget $ENTRY_CONFIG_URL -q -O "$LOCAL_CONFIG/entry.config";
-echo "[info] installed config."
+echo "[info] installed config.";
+
+echo "[info] done."
 
